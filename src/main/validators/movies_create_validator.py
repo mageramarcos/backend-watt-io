@@ -25,3 +25,7 @@ class MovieCreateResponse(BaseModel):
 class MoviesListResponse(BaseModel):
     total: int = Field(examples=[1])
     data: list[MovieOut]
+
+
+class MovieDetailResponse(BaseModel):
+    data: MovieOut
