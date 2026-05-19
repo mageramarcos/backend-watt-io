@@ -1,4 +1,4 @@
-from typing import Any, Dict
+from typing import Any, Dict, List
 
 from src.main.database import get_connection
 
@@ -26,3 +26,11 @@ def create_movie_repo(data: Dict[str, Any]) -> Dict[str, Any]:
         ).fetchone()
 
     return dict(row) if row else {}
+
+
+def list_movies_repo() -> List[Dict[str, Any]]:
+    query = "SELECT id, title, director, release_year, genre FROM movies ORDER BY id"
+    with get_connection() as conn:
+        rows = conn.execute(query).fetchall()
+
+    return [dict(row) for row in rows]

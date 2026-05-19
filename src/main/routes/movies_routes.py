@@ -1,7 +1,11 @@
 from fastapi import APIRouter
 
-from src.main.services.movies_service import create_movie_service
-from src.main.validators import MovieCreateResponse, MovieCreateValidator
+from src.main.services.movies_service import create_movie_service, list_movies_service
+from src.main.validators import (
+    MovieCreateResponse,
+    MovieCreateValidator,
+    MoviesListResponse,
+)
 
 movies_router = APIRouter(tags=["Movies"])
 
@@ -12,4 +16,13 @@ async def create_movie_route(body: MovieCreateValidator):
     return {
         "message": "Movie created successfully",
         "data": created_movie,
+    }
+
+
+@movies_router.get("/movies", response_model=MoviesListResponse)
+async def list_movies_route():
+    movies = list_movies_service()
+    return {
+        "total": len(movies),
+        "data": movies,
     }

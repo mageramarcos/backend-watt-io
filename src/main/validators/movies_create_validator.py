@@ -18,5 +18,10 @@ class MovieOut(BaseModel):
 
 
 class MovieCreateResponse(BaseModel):
-    message: str = Field(examples=["Filme criado com sucesso"])
+    message: str = Field(examples=["Movie created successfully"])
     data: MovieOut
+
+
+class MoviesListResponse(BaseModel):
+    total: int = Field(examples=[1])
+    data: list[MovieOut]
